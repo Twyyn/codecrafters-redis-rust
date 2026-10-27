@@ -1,0 +1,18 @@
+    Checking codecrafters-redis v0.1.0 (/home/jarrett/codecrafters-redis-rust)
+warning: unused dependency `thiserror`
+  --> Cargo.toml:10:1
+   |
+10 | thiserror = "1.0.32"                                # error handling
+   | ^^^^^^^^^
+   |
+   = note: `cargo::unused_dependencies` is set to `warn` by default
+help: consider removing the dependency on `thiserror`
+warning: unused dependency `tokio`
+  --> Cargo.toml:11:1
+   |
+11 | tokio = { version = "1.23.0", features = ["full"] } # async networking
+   | ^^^^^
+   |
+help: consider removing the dependency on `tokio`
+warning: `codecrafters-redis` (manifest) generated 2 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
