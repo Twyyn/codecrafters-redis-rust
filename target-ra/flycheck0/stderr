@@ -15,4 +15,4 @@ warning: unused dependency `tokio`
    |
 help: consider removing the dependency on `tokio`
 warning: `codecrafters-redis` (manifest) generated 2 warnings
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s

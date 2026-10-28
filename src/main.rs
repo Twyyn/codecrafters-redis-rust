@@ -1,12 +1,24 @@
 use codecrafters_redis::Connection;
-use std::io;
-use std::net::{TcpListener, TcpStream};
+use std::{
+    io,
+    net::{TcpListener, TcpStream},
+};
+
+const LISTEN_ADDR: &str = "127.0.0.1:6379";
 
 fn main() -> anyhow::Result<()> {
-    let listener = TcpListener::bind("127.0.0.1:6379")?;
+    let listener = TcpListener::bind(LISTEN_ADDR)?;
 
-    for stream in listener.incoming() {
-        if let Err(err) = stream.and_then(handle_connection) {
+    for incoming in listener.incoming() {
+        let stream = match incoming {
+            Ok(stream) => stream,
+            Err(err) => {
+                eprintln!("{err}");
+                continue;
+            }
+        };
+
+        if let Err(err) = handle_connection(stream) {
             eprintln!("{err}");
         }
     }
@@ -19,8 +31,8 @@ fn handle_connection(stream: TcpStream) -> io::Result<()> {
 
     let mut connection = Connection::new(stream);
 
-    if connection.fill_buf()? > 0 {
-        connection.send(b"+PONG\r\n")?;
+    if connection.read_chunk()? > 0 {
+        connection.write_all(b"+PONG\r\n")?;
     }
 
     Ok(())
