@@ -1,4 +1,8 @@
+use crate::resp::Frame;
+
 use std::{collections::HashMap, io::Result};
+
+use bytes::BytesMut;
 use tokio::{
     io::{AsyncReadExt, AsyncWriteExt},
     net::{TcpListener, TcpStream},
@@ -24,13 +28,22 @@ impl Server {
 #[derive(Debug)]
 pub struct Client {
     stream: Stream,
+    id: usize,
 }
 
 impl Client {
-    pub fn spawn_writer(mut self, mut rx: Receiver<u8>) -> JoinHandle<Result<()>> {
+    pub fn new(stream: Stream, id: usize) -> Self {
+        Self { stream, id }
+    }
+
+    pub fn spawn_writer(
+        mut self,
+        buffer: &mut BytesMut,
+        mut rx: Receiver<Option<Frame>>,
+    ) -> JoinHandle<Result<()>> {
         tokio::spawn(async move {
-            while let Some(byte) = rx.recv().await {
-                self.stream.write(&[byte]).await?;
+            while let Some(frame) = rx.recv().await {
+                self.stream.write(frame.unwrap().serialize(buffer)).await?;
             }
 
             Ok(())
