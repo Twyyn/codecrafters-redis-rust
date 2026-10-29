@@ -43,7 +43,7 @@ impl Client {
     ) -> JoinHandle<Result<()>> {
         tokio::spawn(async move {
             while let Some(frame) = rx.recv().await {
-                self.stream.write(frame.unwrap().serialize(buffer)).await?;
+                self.stream.write(frame.unwrap().serialize()).await?;
             }
 
             Ok(())

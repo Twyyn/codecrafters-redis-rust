@@ -13,8 +13,14 @@ pub enum Frame {
 }
 
 impl Frame {
-    pub fn serialize(&self, buffer: &mut BytesMut) -> Bytes {
-        let mut number = itoa::Buffer::new();
+    pub fn serialize(&self) -> Bytes {
+        let mut buffer = BytesMut::new();
+        self.serialize_into(&mut buffer);
+        buffer.freeze()
+    }
+
+    pub fn serialize_into(&self, buffer: &mut BytesMut) {
+        let mut digits = itoa::Buffer::new();
 
         match self {
             Self::Simple(message) => {
@@ -31,13 +37,13 @@ impl Frame {
 
             Self::Integer(value) => {
                 buffer.put_u8(b':');
-                buffer.extend_from_slice(value.to_string().as_bytes());
+                buffer.extend_from_slice(digits.format(*value).as_bytes());
                 buffer.extend_from_slice(CRLF);
             }
 
             Self::Bulk(bytes) => {
                 buffer.put_u8(b'$');
-                buffer.extend_from_slice(bytes.len().to_string().as_bytes());
+                buffer.extend_from_slice(digits.format(bytes.len()).as_bytes());
                 buffer.extend_from_slice(CRLF);
                 buffer.extend_from_slice(bytes);
                 buffer.extend_from_slice(CRLF);
@@ -45,10 +51,11 @@ impl Frame {
 
             Self::Array(frames) => {
                 buffer.put_u8(b'*');
-                buffer.extend_from_slice(frames.len().to_string().as_bytes());
+                buffer.extend_from_slice(digits.format(frames.len()).as_bytes());
                 buffer.extend_from_slice(CRLF);
+
                 for _ in frames {
-                    self.serialize();
+                    self.serialize_into(buffer);
                 }
             }
 
@@ -56,8 +63,6 @@ impl Frame {
                 buffer.extend_from_slice(b"$-1\r\n");
             }
         }
-
-        buffer.freeze()
     }
 
     pub fn is_error(&self) -> bool {

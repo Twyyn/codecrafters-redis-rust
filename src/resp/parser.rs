@@ -1,4 +1,4 @@
-use bytes::{Buf, Bytes, BytesMut};
+use bytes::{Bytes, BytesMut};
 
 #[derive(Debug, Clone)]
 pub struct Argument {
