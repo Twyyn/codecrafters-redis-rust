@@ -1,39 +1,32 @@
-use codecrafters_redis::Connection;
-use std::{
-    io,
-    net::{TcpListener, TcpStream},
-};
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    // let listener = TcpListener::bind(LISTEN_ADDR)?;
 
-const LISTEN_ADDR: &str = "127.0.0.1:6379";
+    // for incoming in listener.incoming() {
+    //     let stream = match incoming {
+    //         Ok(stream) => stream,
+    //         Err(err) => {
+    //             eprintln!("{err}");
+    //             continue;
+    //         }
+    //     };
 
-fn main() -> anyhow::Result<()> {
-    let listener = TcpListener::bind(LISTEN_ADDR)?;
-
-    for incoming in listener.incoming() {
-        let stream = match incoming {
-            Ok(stream) => stream,
-            Err(err) => {
-                eprintln!("{err}");
-                continue;
-            }
-        };
-
-        if let Err(err) = handle_connection(stream) {
-            eprintln!("{err}");
-        }
-    }
+    //     if let Err(err) = handle_connection(stream) {
+    //         eprintln!("{err}");
+    //     }
+    // }
 
     Ok(())
 }
 
-fn handle_connection(stream: TcpStream) -> io::Result<()> {
-    println!("accepted new connection");
+// fn handle_connection(stream: TcpStream) -> io::Result<()> {
+//     println!("accepted new connection");
 
-    let mut connection = Connection::new(stream);
+//     let mut connection = Connection::new(stream);
 
-    if connection.read_chunk()? > 0 {
-        connection.write_all(b"+PONG\r\n")?;
-    }
+//     if connection.read_chunk()? > 0 {
+//         connection.write_all(b"+PONG\r\n")?;
+//     }
 
-    Ok(())
-}
+//     Ok(())
+// }

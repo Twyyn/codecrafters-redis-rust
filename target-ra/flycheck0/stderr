@@ -7,12 +7,5 @@ warning: unused dependency `thiserror`
    |
    = note: `cargo::unused_dependencies` is set to `warn` by default
 help: consider removing the dependency on `thiserror`
-warning: unused dependency `tokio`
-  --> Cargo.toml:11:1
-   |
-11 | tokio = { version = "1.23.0", features = ["full"] } # async networking
-   | ^^^^^
-   |
-help: consider removing the dependency on `tokio`
-warning: `codecrafters-redis` (manifest) generated 2 warnings
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+warning: `codecrafters-redis` (manifest) generated 1 warning
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
