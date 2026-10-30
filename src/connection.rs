@@ -36,14 +36,14 @@ impl Client {
         Self { stream, id }
     }
 
-    pub fn spawn_writer(
-        mut self,
-        buffer: &mut BytesMut,
-        mut rx: Receiver<Option<Frame>>,
-    ) -> JoinHandle<Result<()>> {
+    pub fn spawn_writer(mut self, mut rx: Receiver<Frame>) -> JoinHandle<Result<()>> {
         tokio::spawn(async move {
+            let mut buffer = BytesMut::new();
+
             while let Some(frame) = rx.recv().await {
-                self.stream.write(frame.unwrap().serialize()).await?;
+                buffer.clear();
+                frame.serialize_into(&mut buffer);
+                self.stream.write(&buffer).await?;
             }
 
             Ok(())

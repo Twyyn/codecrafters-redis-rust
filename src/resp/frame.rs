@@ -24,7 +24,7 @@ impl Frame {
 
         match self {
             Self::Simple(message) => {
-                buffer.put_u8(b'+');
+                buffer.put_u8(if self.is_error() { b'-' } else { b'+' });
                 buffer.extend_from_slice(message);
                 buffer.extend_from_slice(CRLF);
             }
@@ -54,8 +54,8 @@ impl Frame {
                 buffer.extend_from_slice(digits.format(frames.len()).as_bytes());
                 buffer.extend_from_slice(CRLF);
 
-                for _ in frames {
-                    self.serialize_into(buffer);
+                for frame in frames {
+                    frame.serialize_into(buffer);
                 }
             }
 
