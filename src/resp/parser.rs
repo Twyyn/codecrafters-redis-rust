@@ -130,9 +130,7 @@ impl Parser {
                     self.cursor = after_crlf;
 
                     if remaining_len > 1 {
-                        self.phase = Phase::BulkHeader {
-                            remaining_len: remaining_len - 1,
-                        };
+                        self.phase = Phase::BulkHeader { remaining_len };
                         continue;
                     }
 

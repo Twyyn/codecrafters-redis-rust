@@ -1,3 +1,5 @@
     Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
     Checking codecrafters-redis v0.1.0 (/home/jarrett/codecrafters-redis-rust)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.16s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.18s
