@@ -1,6 +1,5 @@
 mod frame;
-pub use frame::Frame;
+pub use frame::{Frame, SpannedArg, SpannedFrame};
 
 mod parser;
-
-const CRLF: &[u8] = b"\r\n";
+pub use parser::{ParseError, Parser};

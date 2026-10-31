@@ -1,11 +1,3 @@
+    Blocking waiting for file lock on package cache
     Checking codecrafters-redis v0.1.0 (/home/jarrett/codecrafters-redis-rust)
-warning: unused dependency `thiserror`
-  --> Cargo.toml:11:1
-   |
-11 | thiserror = "1.0.32"                                # error handling
-   | ^^^^^^^^^
-   |
-   = note: `cargo::unused_dependencies` is set to `warn` by default
-help: consider removing the dependency on `thiserror`
-warning: `codecrafters-redis` (manifest) generated 1 warning
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.16s
