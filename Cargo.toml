@@ -1,11 +1,13 @@
 [package]
 name = "codecrafters-redis"
 version = "0.1.0"
-authors = ["Codecrafters <hello@codecrafters.io>"]
+authors = [ "Codecrafters <hello@codecrafters.io>" ]
 edition = "2024"
 
 [dependencies]
-anyhow = "1.0.59"                                   # error handling
-bytes = "1.3.0"                                     # helps manage buffers
-thiserror = "1.0.32"                                # error handling
-tokio = { version = "1.23.0", features = ["full"] } # async networking
+anyhow = "1.0.104"                                    # error handling
+atoi = "3.1.1"
+bytes = "1.12.1"                                      # helps manage buffers
+memchr = "2.8.3"
+thiserror = "2.0.21"                                  # error handling
+tokio = { version = "1.54.1", features = [ "full" ] } # async networking

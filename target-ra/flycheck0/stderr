@@ -1,0 +1,19 @@
+    Blocking waiting for file lock on package cache
+    Checking codecrafters-redis v0.1.0 (/workspaces/codecrafters-redis-rust)
+warning: unused dependency `anyhow`
+ --> Cargo.toml:8:1
+  |
+8 | anyhow = "1.0.104"                                    # error handling
+  | ^^^^^^
+  |
+  = note: `cargo::unused_dependencies` is set to `warn` by default
+help: consider removing the dependency on `anyhow`
+warning: unused dependency `atoi`
+ --> Cargo.toml:9:1
+  |
+9 | atoi = "3.1.1"
+  | ^^^^
+  |
+help: consider removing the dependency on `atoi`
+warning: `codecrafters-redis` (manifest) generated 2 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.49s
